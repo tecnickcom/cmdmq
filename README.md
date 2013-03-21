@@ -37,7 +37,7 @@ DESCRIPTION:
 ------------
 
 cmdMQ is a Free Open Source Software system to send commands to a remote computer using RabbitMQ queues.
-This system uses an RPC (Remote Procedure Call) model to send commands from one note to another and get the results as JSON formatted data.
+This system uses an RPC (Remote Procedure Call) model to send commands from one computer node to another and get the results as JSON formatted data.
 The RabbitMQ server (broker) can be installed on the sender computer node, the receiver computer node or another computer node.
 The cmdMQ-Receiver runs and execute received commands as root. The only commands executed are the one specified on the configuration file using a regular expression syntax.
 
