@@ -1,0 +1,70 @@
+#!/bin/sh
+
+# PROVIDE: cmdmq_receiver
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+
+# CONFIGURATION:
+# Copy this script on: /usr/local/etc/rc.d
+# Add the following line to /etc/rc.conf to enable cmdMQ-Receiver
+# cmdmq_receiver_enable="YES"
+
+#==============================================================================+
+# File name   : cmdmq_receiver
+# Begin       : 2013-03-18
+# Last Update : 2013-03-21
+# Version     : 1.0.0
+#
+# Description : FeeBSD Init script to execute cmdMQ-Receiver
+#
+# Website     : 
+#
+# Author: Nicola Asuni
+#
+# (c) Copyright:
+#               Fubra Limited
+#               Manor Coach House
+#               Church Hill
+#               Aldershot
+#               Hampshire
+#               GU12 4RQ
+#               UK
+#               http://www.fubra.com
+#               support@fubra.com
+#
+# License:
+#    Copyright (C) 2012-2013 Fubra Limited
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    See LICENSE.TXT file for more information.
+#==============================================================================+
+
+. /etc/rc.subr
+
+name=cmdmq_receiver
+rcvar=cmdmq_receiver_enable
+
+command="/usr/sbin/daemon"
+command_args="-f -p /usr/local/${name}_pid python /usr/local/sbin/${name}.py"
+
+load_rc_config ${name}
+: ${cmdmq_receiver_enable:="NO"}
+
+run_rc_command "$1"
+
+#==============================================================================+
+# END OF FILE
+#==============================================================================+

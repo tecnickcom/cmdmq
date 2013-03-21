@@ -1,0 +1,94 @@
+cmdMQ-Receiver - README
+================================================================================
+
+Name: cmdMQ-Receiver
+
+Version: 1.0.0
+
+Release date: 2013-03-21
+
+Author: Nicola Asuni (nicola@fubra.com)
+
+Copyright (2013-2013):
+	Fubra Limited
+	Manor Coach House
+	Church Hill
+	Aldershot
+	Hampshire
+	GU12 4RQ
+	UK
+	http://www.fubra.com
+	support@fubra.com
+
+URL: https://github.com/fubralimited/cmdMQ
+
+
+SOFTWARE LICENSE (AGPLv3):
+--------------------------
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along
+with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+See LICENSE.TXT file for more information.
+
+
+DESCRIPTION:
+------------
+
+The cmdMQ-Receiver is a python script to receive and execute remote commands sent
+using RabbitMQ queue.
+
+This folder contains the source code of cmdMQ-Receiver:
+
+* LICENSE
+
+	License file.
+
+* README
+
+	This is the file you are currently reading.
+
+* default.conf
+
+	This is the default configuration file that should be edited and copied to
+	/etc/cmdmq_receiver/default.conf
+	
+* cmdmq_receiver.py
+
+	This is the main program that consume the messages from the queue and 
+	execute them.
+	This file must be marked as executable:
+		chmod +x cmdmq_receiver.py
+
+* cmdmq_receiver
+
+	This is a SysV init script for Linux-bases Operating Systems.
+	Copy this file undere the /etc/init.d directory.
+
+* cmdmq_receiver_fbsd
+
+	This is a init script for FreeBSD-based Operating Systems.
+	Copy this file undere the /usr/local/etc/rc.d directory and add the 
+	following line to /etc/rc.conf to enable cmdMQ-Receiver at boot:
+		cmdmq_receiver_enable="YES"
+	
+
+CONFIGURE
+---------
+
+	The default configuration file cmdMQ-Receiver is located at:
+	/etc/cmdmq_receiver/default.conf
+	You can also specify an alternative configuration file using the -c
+	attribute. For example:
+	cmdmq_receiver.py -c /my/config/file.conf
+
+================================================================================

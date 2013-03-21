@@ -1,0 +1,91 @@
+cmdMQ-Sender - README
+================================================================================
+
+Name: cmdMQ-Sender
+
+Version: 1.0.0
+
+Release date: 2013-03-21
+
+Author: Nicola Asuni (nicola@fubra.com)
+
+Copyright (2013-2013):
+	Fubra Limited
+	Manor Coach House
+	Church Hill
+	Aldershot
+	Hampshire
+	GU12 4RQ
+	UK
+	http://www.fubra.com
+	support@fubra.com
+
+URL: https://github.com/fubralimited/cmdMQ
+
+
+SOFTWARE LICENSE (AGPLv3):
+--------------------------
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along
+with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+See LICENSE.TXT file for more information.
+
+
+DESCRIPTION:
+------------
+
+The cmdMQ-Sender is a python script to receive and execute remote commands sent
+using a RabbitMQ queue.
+
+This folder contains the source code of cmdMQ-Sender:
+
+* LICENSE
+
+	License file.
+
+* README
+
+	This is the file you are currently reading.
+
+* default.conf
+
+	This is the default configuration file that should be edited and copied to
+	/etc/cmdmq_sender/default.conf
+	
+* cmdmq_sender.py
+
+	This is the main program.
+	This file must be marked as executable:
+		chmod +x cmdmq_sender.py
+	To send a command:
+		cmdmq_sender.py -e "<command to be executed>"
+	For example:
+		cmdmq_sender.py -e "ls -lah"
+	The command returns a JSON object with the following information:
+		
+		{
+			'ret':<ERROR_CODE>,
+			'out':<COMMAND_OUTPUT>,
+			'err':<ERROR_MESSAGE>
+		}
+
+CONFIGURE
+---------
+
+	The default configuration file cmdMQ-Sender is located at:
+	/etc/cmdmq_sender/default.conf
+	You can also specify an alternative configuration file using the -c
+	attribute. For example:
+	cmdmq_sender.py -c /my/config/file.conf -e "command to be executed"
+
+================================================================================

@@ -1,0 +1,144 @@
+#!/bin/bash
+#
+#chkconfig: 235 99 01
+#description: Starts and stops cmdMQ-Receiver
+
+#==============================================================================+
+# File name   : cmdmq_receiver
+# Begin       : 2013-03-18
+# Last Update : 2013-03-21
+# Version     : 1.0.0
+#
+# Description : SysV Init script to execute cmdMQ-Receiver.
+#
+# Website     : https://github.com/fubralimited/cmdMQ
+#
+# Author: Nicola Asuni
+#
+# (c) Copyright:
+#               Fubra Limited
+#               Manor Coach House
+#               Church Hill
+#               Aldershot
+#               Hampshire
+#               GU12 4RQ
+#               UK
+#               http://www.fubra.com
+#               support@fubra.com
+#
+# License:
+#    Copyright (C) 2013-2013 Fubra Limited
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    See LICENSE.TXT file for more information.
+#==============================================================================+
+
+# start program in background
+CMD="/usr/bin/cmdmq_receiver.py"
+LOCKFILE="/var/lock/cmdmq_receiver"
+PID=`ps ax | grep -v grep | grep "$CMD" | awk '{print $1;}'`
+RETVAL=0
+
+# get SystemV Init function library.
+if [ -f /etc/init.d/functions ] ; then
+	. /etc/init.d/functions
+elif [ -f /etc/rc.d/init.d/functions ] ; then
+	. /etc/rc.d/init.d/functions
+elif [ -f /lib/lsb/init-functions ] ; then
+	. /lib/lsb/init-functions
+else
+	exit 1
+fi
+
+# Start the service
+start() {
+	echo -n "Starting cmdMQ-Receiver: "
+	if test -f $LOCKFILE ; then
+		# check if the process is running
+		if [ ! -z "$PID" ]; then
+			echo "Service is Already Running."
+			return $RETVAL
+		else
+			# delete the orphan lock file
+			rm -f $LOCKFILE
+		fi
+	fi
+	#start the process
+	(setsid bash -c "($CMD) & disown %%") </dev/null >&/dev/null &
+	RETVAL=$?
+	[ $RETVAL = 0 ] && touch $LOCKFILE && echo "OK" || echo "ERROR"
+	return $RETVAL
+}
+
+# Restart the service
+stop() {
+	echo -n "Stopping cmdMQ-Receiver: "
+	# check if the process is running
+	if [ ! -z "$PID" ]; then
+		# kill the process
+		kill $PID
+		RETVAL=$?
+		echo "OK"
+	else
+		RETVAL=3
+		echo "Service is not running."
+	fi
+	rm -f $LOCKFILE
+	return $RETVAL
+}
+
+### main logic ###
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	status)
+		echo -n "cmdMQ-Receiver status: "
+		if [ ! -z "$PID" ]; then
+			RETVAL=0
+			echo "Service is running."
+		else
+			if test -f $LOCKFILE ; then
+				RETVAL=2
+				echo "Service is dead and $LOCKFILE lock file exist."
+			else
+				RETVAL=3
+				echo "Service is not running."
+			fi
+		fi
+		;;
+	restart|reload)
+		stop
+		start
+		;;
+	condrestart)
+		if test -f $LOCKFILE ; then
+			stop
+			start
+		fi
+		;;
+	*)
+		echo "Usage: $0 {start|stop|status|restart|reload|condrestart}"
+		RETVAL=2
+		[ "$1" = 'usage' ] && RETVAL=0
+esac
+exit $RETVAL
+
+#==============================================================================+
+# END OF FILE
+#==============================================================================+
