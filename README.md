@@ -42,6 +42,12 @@ The RabbitMQ server (broker) can be installed on the sender computer node, the r
 The cmdMQ-Receiver runs and execute received commands as root. The only commands executed are the one specified on the configuration file using a regular expression syntax.
 
 
+	+--------------+      rpc_queue      +----------------+ 
+	|              |--->[ | | | | | ]--->|                |
+	| cmdMQ-Sender |                     | cmdMQ-Receiver |
+	|              |<---[ | | | | | ]<---|                |
+	+--------------+     reply_queue     +----------------+
+
 
 ## cmdmq_sender ##
 
