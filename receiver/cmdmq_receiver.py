@@ -13,6 +13,8 @@
 #               Start the RabbitMQ server.
 #               Execute this script.
 #
+#     Website : https://github.com/fubralimited/cmdmq
+#
 # Author: Nicola Asuni
 #
 # (c) Copyright:

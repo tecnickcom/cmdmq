@@ -9,6 +9,8 @@
 # Description : RabbitMQ RPC client used to send commands to a remote
 #               receiver.
 #
+#     Website : https://github.com/fubralimited/cmdmq
+#
 # Installation: Copy this script on the client node.
 #               Set the execuable permission (chmod +x cmdmq_sender.py).
 #               Call this script with the command to send as arguments.
