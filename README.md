@@ -208,7 +208,7 @@ Copy the cmdmq_receiver.py script to /usr/local/sbin/cmdmq_receiver.py and mark 
  
 	chmod +x /usr/local/sbin/cmdmq_receiver.py
 
-Copy the cmdmq_receiver.conf configuration file to /etc/cmdmq_receiver/default.conf and edit it.
+Copy the default.conf configuration file to /etc/cmdmq_receiver/default.conf and edit it.
 
 Copy the cmdmq_receiver init script to /etc/init.d/cmdmq_receiver and mark it as executable with 
 
@@ -235,7 +235,7 @@ Copy the cmdmq_receiver.py script to /usr/local/sbin/cmdmq_receiver.py and mark 
  
 	chmod +x /usr/local/sbin/cmdmq_receiver.py
 
-Copy the cmdmq_receiver.conf configuration file to /etc/cmdmq_receiver/default.conf and edit it.
+Copy the default.conf configuration file to /etc/cmdmq_receiver/default.conf and edit it.
 
 Copy the cmdmq_receiver_fsb init script to /usr/local/etc/rc.d/cmdmq_receiver and mark it as executable with 
 
