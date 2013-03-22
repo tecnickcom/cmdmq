@@ -112,6 +112,8 @@ Edit the RabbitMQ main configuration file only if you want to use SSL
 
  [
    {rabbit, [
+      {default_user, <<"catnrmq">>},
+      {default_pass, <<"N8IJYBxbCnhqWZ8DshvTXofTONtegRzZ">>},
       {ssl_listeners, [5671]},
       {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
                      {certfile,"/etc/rabbitmq/ssl/cert.pem"},
@@ -163,6 +165,8 @@ Edit the RabbitMQ main configuration file only if you want to use SSL
 
  [
    {rabbit, [
+      {default_user, <<"catnrmq">>},
+      {default_pass, <<"N8IJYBxbCnhqWZ8DshvTXofTONtegRzZ">>},
       {ssl_listeners, [5671]},
       {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
                      {certfile,"/etc/rabbitmq/ssl/cert.pem"},
@@ -183,6 +187,13 @@ To start the RabbitMQ server:
  
  /usr/local/etc/rc.d/rabbitmq start
 
+### Reset RabbitMQ ###
+
+To reset the RabbitMQ user/password:
+
+ rabbitmqctl stop_app
+ rabbitmqctl force_reset
+ rabbitmqctl start_app
 
 ### SSL TEST ###
 
