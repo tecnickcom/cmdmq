@@ -94,34 +94,34 @@ Once configured, this program can be started using one of the provided init scri
 
 Install EPEL, then:
 
- yum -y install openssl
- yum -y install erlang
+	 yum -y install openssl
+	 yum -y install erlang
 
 Download the RabbitMQ RPM
 
- wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.0.4/rabbitmq-server-3.0.4-1.noarch.rpm
+	wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.0.4/rabbitmq-server-3.0.4-1.noarch.rpm
 
 Install RabbitMQ:
 
- rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
- yum -y install rabbitmq-server-3.0.4-1.noarch.rpm
+	 rpm --import http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+	 yum -y install rabbitmq-server-3.0.4-1.noarch.rpm
 
 Edit the RabbitMQ main configuration file only if you want to use SSL
 
- nano /etc/rabbitmq/rabbitmq.config
+	nano /etc/rabbitmq/rabbitmq.config
 
- [
-   {rabbit, [
-      {default_user, <<"catnrmq">>},
-      {default_pass, <<"N8IJYBxbCnhqWZ8DshvTXofTONtegRzZ">>},
-      {ssl_listeners, [5671]},
-      {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
-                     {certfile,"/etc/rabbitmq/ssl/cert.pem"},
-                     {keyfile,"/etc/rabbitmq/ssl/key.pem"},
-                     {verify,verify_none},
-                     {fail_if_no_peer_cert,false}]}
-    ]}
- ].
+	 [
+	   {rabbit, [
+		  {default_user, <<"catnrmq">>},
+		  {default_pass, <<"N8IJYBxbCnhqWZ8DshvTXofTONtegRzZ">>},
+		  {ssl_listeners, [5671]},
+		  {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
+						 {certfile,"/etc/rabbitmq/ssl/cert.pem"},
+						 {keyfile,"/etc/rabbitmq/ssl/key.pem"},
+						 {verify,verify_none},
+						 {fail_if_no_peer_cert,false}]}
+		]}
+	 ].
 
 Copy the certificate files as indicated on the configuration file.
 For the generation of the SSL certificates please consult:
@@ -129,11 +129,11 @@ http://www.rabbitmq.com/ssl.html
 
 Start the service:
 
- service rabbitmq-server start
+	service rabbitmq-server start
 
 Start service at reboot:
 
- chkconfig rabbitmq-server on.
+	chkconfig rabbitmq-server on.
 
 Use rabbitmqctl stop to stop the server.
 Use rabbitmqctl status to check whether it is running.
@@ -145,65 +145,65 @@ Create the user "rabbitmq" with shell "nologin" and primary group "daemon".
 
 To install additional packages we need to set the correct repository (discarded after reboot):
 
- setenv PACKAGESITE ftp://ftp.freebsd.org/pub/FreeBSD/ports/amd64/packages-9-current/Latest/
+	setenv PACKAGESITE ftp://ftp.freebsd.org/pub/FreeBSD/ports/amd64/packages-9-current/Latest/
 
 Install the following packages (used for the mesaging system):
 
- pkg_add -r openssl
- cp /usr/local/openssl/openssl.cnf.sample /usr/local/openssl/openssl.cnf
+	pkg_add -r openssl
+	cp /usr/local/openssl/openssl.cnf.sample /usr/local/openssl/openssl.cnf
  
- pkg_add -r rabbitmq
+	pkg_add -r rabbitmq
 
 Edit the /etc/rc.conf file and add the following lines:
 
- rabbitmq_enable="YES"
- rabbitmq_user="root"
+	 rabbitmq_enable="YES"
+	 rabbitmq_user="root"
 
 Edit the RabbitMQ main configuration file only if you want to use SSL
 
  nano /etc/rabbitmq/rabbitmq.config
 
- [
-   {rabbit, [
-      {default_user, <<"catnrmq">>},
-      {default_pass, <<"N8IJYBxbCnhqWZ8DshvTXofTONtegRzZ">>},
-      {ssl_listeners, [5671]},
-      {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
-                     {certfile,"/etc/rabbitmq/ssl/cert.pem"},
-                     {keyfile,"/etc/rabbitmq/ssl/key.pem"},
-                     {verify,verify_none},
-                     {fail_if_no_peer_cert,false}]}
-    ]}
- ].
+	 [
+	   {rabbit, [
+		  {default_user, <<"catnrmq">>},
+		  {default_pass, <<"N8IJYBxbCnhqWZ8DshvTXofTONtegRzZ">>},
+		  {ssl_listeners, [5671]},
+		  {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
+						 {certfile,"/etc/rabbitmq/ssl/cert.pem"},
+						 {keyfile,"/etc/rabbitmq/ssl/key.pem"},
+						 {verify,verify_none},
+						 {fail_if_no_peer_cert,false}]}
+		]}
+	 ].
 
 
 Copy the configuration file:
 
- cp /etc/rabbitmq/rabbitmq.config /usr/local/etc/rabbitmq/rabbitmq.config 
+	cp /etc/rabbitmq/rabbitmq.config /usr/local/etc/rabbitmq/rabbitmq.config 
 
 Copy the certificate files as indicated on the configuration file.
 
 To start the RabbitMQ server:
  
- /usr/local/etc/rc.d/rabbitmq start
+	/usr/local/etc/rc.d/rabbitmq start
 
 ### Reset RabbitMQ ###
 
 To reset the RabbitMQ user/password:
 
- rabbitmqctl stop_app
- rabbitmqctl force_reset
- rabbitmqctl start_app
+	 rabbitmqctl stop_app
+	 rabbitmqctl force_reset
+	 rabbitmqctl start_app
 
 ### SSL TEST ###
 
 In one terminal window execute the following command: 
 
- openssl s_server -accept 8443 -cert /etc/rabbitmq/server/cert.pem -key /etc/rabbitmq/server/key.pem -CAfile /etc/rabbitmq/testca/cacert.pem
+	openssl s_server -accept 8443 -cert /etc/rabbitmq/server/cert.pem -key /etc/rabbitmq/server/key.pem -CAfile /etc/rabbitmq/testca/cacert.pem
 
 In another terminal window execute
 
- openssl s_client -connect 127.0.0.1:8443 -cert /etc/rabbitmq/client/cert.pem -key /etc/rabbitmq/client/key.pem -CAfile /etc/rabbitmq/testca/cacert.pem
+	openssl s_client -connect 127.0.0.1:8443 -cert /etc/rabbitmq/client/cert.pem -key /etc/rabbitmq/client/key.pem -CAfile /etc/rabbitmq/testca/cacert.pem
 
 If the certificates and keys have been correctly created, an SSL connection establishment sequence will appear and the terminals will be linked.
 Input from either terminal will appear on the other.
