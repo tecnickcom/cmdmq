@@ -3,7 +3,7 @@
 #==============================================================================+
 # File name   : cmdmq_sender.py
 # Begin       : 2013-03-06
-# Last Update : 2013-03-21
+# Last Update : 2013-04-03
 # Version     : 1.0.0
 #
 # Description : RabbitMQ RPC client used to send commands to a remote
@@ -120,9 +120,9 @@ class cmdRpcClient(object):
 			result = self.channel.queue_declare(exclusive=True)
 			self.callback_queue = result.method.queue
 			self.channel.basic_consume(self.on_response, no_ack=True, queue=self.callback_queue)
-		except:
+		except Exception,e:
 			# print error message and exit
-			print json.dumps({'ret':1, 'out':'', 'err':'connection error'})
+			print json.dumps({'ret':1, 'out':'', 'err':str(e)})
 			exit(1)
 
     def on_response(self, ch, method, props, body):

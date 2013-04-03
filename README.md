@@ -5,7 +5,7 @@ cmdMQ - README
 
 + Version: 1.0.0
 
-+ Release date: 2013-03-21
++ Release date: 2013-04-03
 
 + Author: Nicola Asuni
 
